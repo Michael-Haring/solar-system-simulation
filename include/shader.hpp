@@ -13,17 +13,18 @@ compiles, and links vertex and fragment shaders.
 #include <string>
 using std::string;
 
-class Shader {
-    public:
-        unsigned int ID;
-        Shader(const char* vertexPath, const char* fragmentPath);
-        ~Shader();
-        void use() const;
-        void checkCompileErrors(unsigned int shader, const string &type);
+class Shader
+{
+public:
+    unsigned int ID;
+    Shader(const char *vertexPath, const char *fragmentPath);
+    ~Shader();
+    void use() const;
+    void checkCompileErrors(unsigned int shader, const string &type);
 
-        void setMat4(const string &name, const glm::mat4 &mat) const;
-        void setVec3(const string &name, const glm::vec3 &vec) const;
+    void setMat4(const string &name, const glm::mat4 &mat) const;
+    void setVec3(const string &name, const glm::vec3 &vec) const;
 
-        Shader(const Shader&) = delete;
-        Shader& operator=(const Shader&) = delete;
+    Shader(const Shader &) = delete;
+    Shader &operator=(const Shader &) = delete;
 };

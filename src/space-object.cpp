@@ -1,5 +1,10 @@
 /*
+@file       space-object.cpp
+@author     Michael Haring
+@date       12/13/25
 
+This file contains the implementation of the SpaceObject class, which represents
+a celestial body in the simulation.
 */
 
 #include "space-object.hpp"
@@ -7,11 +12,8 @@
 // PUBLIC IMPLEMENTATION FOR SPACEOBJECT CLASS
 
 SpaceObject::SpaceObject(const float m, const float r,
-                         const vec3& pos, const vec3& vel, const vec3& col)
+                         const vec3 &pos, const vec3 &vel, const vec3 &col)
     : mass(m), radius(r), position(pos), velocity(vel), color(col) {}
-
-
-
 
 void SpaceObject::update(float dt)
 {
@@ -19,8 +21,9 @@ void SpaceObject::update(float dt)
 }
 
 void SpaceObject::applyForce(const vec3 &force, float dt)
-{   
-    if (mass <= 0) return;
+{
+    if (mass <= 0)
+        return;
     vec3 acceleration = force / mass;
     velocity += acceleration * dt;
 }
@@ -50,7 +53,7 @@ vec3 SpaceObject::getColor() const
     return color;
 }
 
-
-void SpaceObject::setVelocity(const vec3& v) {
+void SpaceObject::setVelocity(const vec3 &v)
+{
     velocity = v;
 }

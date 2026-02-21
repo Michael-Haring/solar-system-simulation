@@ -1,5 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17 -Iinclude
+CXXFLAGS = -g3 -Wall -Wextra -std=c++17 -Iinclude -Wunreachable-code -Wno-unused-parameter \
+		 -Wredundant-decls -Wno-unused-variable -Wshadow
 
 SRC_DIR = src
 INCLUDE_DIR = include

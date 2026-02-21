@@ -1,5 +1,10 @@
 /*
+@file       simulation.cpp
+@author     Michael Haring
+@date       12/13/25
 
+This file contains the implementation of the Simulation class, which manages
+the collection of space objects and their interactions.
 */
 
 #include "simulation.hpp"
@@ -19,19 +24,21 @@ void Simulation::addObject(const SpaceObject &obj)
 void Simulation::step(float dt)
 {
     const size_t N = objects.size();
-    //const float eps = 1e-4f;
-    if (N == 0) return;
+    // const float eps = 1e-4f;
+    if (N == 0)
+        return;
     vector<vec3> forces(objects.size(), vec3(0.0f));
     vector<size_t> toRemove;
     vector<bool> removed(N, false);
 
-
     for (size_t i = 0; i < N; ++i)
     {
-        if (removed[i]) continue;
+        if (removed[i])
+            continue;
         for (size_t j = i + 1; j < N; ++j)
         {
-            if (removed[j]) continue;
+            if (removed[j])
+                continue;
             vec3 dir = objects[j].getPosition() - objects[i].getPosition();
             float dist = glm::length(dir);
 
@@ -57,8 +64,10 @@ void Simulation::step(float dt)
         newObjects.reserve(objects.size());
         vector<vec3> newForces;
         newForces.reserve(forces.size());
-        for (size_t idx = 0; idx < objects.size(); ++idx) {
-            if (!removed[idx]) {
+        for (size_t idx = 0; idx < objects.size(); ++idx)
+        {
+            if (!removed[idx])
+            {
                 newObjects.push_back(std::move(objects[idx]));
                 if (idx < forces.size())
                     newForces.push_back(forces[idx]);
@@ -84,10 +93,12 @@ void Simulation::mergeObjects(size_t i, size_t j, vector<size_t> &toRemove)
     float totalMass = obj1.getMass() + obj2.getMass();
 
     vec3 newVelocity = (obj1.getVelocity() * obj1.getMass() + obj2.getVelocity() *
-                        obj2.getMass()) / totalMass;
+                                                                  obj2.getMass()) /
+                       totalMass;
 
-    vec3 newPosition = (obj1.getPosition() * obj1.getMass() + 
-                        obj2.getPosition() * obj2.getMass()) / totalMass;
+    vec3 newPosition = (obj1.getPosition() * obj1.getMass() +
+                        obj2.getPosition() * obj2.getMass()) /
+                       totalMass;
 
     float newRadius = cbrtf(
         obj1.getRadius() * obj1.getRadius() * obj1.getRadius() +

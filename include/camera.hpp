@@ -10,7 +10,8 @@ the camera's position, orientation, and movement.
 #include <glm/gtc/matrix_transform.hpp>
 using glm::vec3;
 
-enum Camera_Movement {
+enum Camera_Movement
+{
     FORWARD,
     BACKWARD,
     LEFT,
@@ -19,18 +20,20 @@ enum Camera_Movement {
     DOWN
 };
 
-class Camera {
-    
-    public:
-        Camera(vec3 _pos, vec3 _up, float _yaw, float _pitch);
-        glm::mat4 getViewMatrix() const;
-        void processMovement(Camera_Movement direction, float deltaTime);
-        void processRotation(float xoffset, float yoffset, float deltaTime);
-        vec3 getPosition() const;
-        vec3 getFront() const;
-    private:
+class Camera
+{
+
+public:
+    Camera(vec3 _pos, vec3 _up, float _yaw, float _pitch);
+    glm::mat4 getViewMatrix() const;
+    void processMovement(Camera_Movement direction, float deltaTime);
+    void processRotation(float xoffset, float yoffset, float deltaTime);
+    vec3 getPosition() const;
+    vec3 getFront() const;
+
+private:
     void updateCameraVectors();
-    
+
     vec3 position;
     vec3 front;
     vec3 up;

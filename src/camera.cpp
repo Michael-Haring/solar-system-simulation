@@ -1,8 +1,13 @@
 /*
 @file       camera.cpp
+@author     Michael Haring
+@date       12/13/25
+
+This file contains the implementation of the Camera class, which handles
+the camera's position, orientation, and movement.
 */
 
-#include "camera.h"
+#include "camera.hpp"
 
 Camera::Camera(vec3 _pos,vec3 _up, float _yaw, float _pitch)
     : position(_pos), worldUp(_up), yaw(_yaw), pitch(_pitch) {
