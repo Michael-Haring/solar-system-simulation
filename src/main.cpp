@@ -6,6 +6,7 @@
  This file contains non-class member functions, and main.
  This program is a simulation of our solar system.
 
+
  */
 
 #include "simulation.hpp"
@@ -16,12 +17,42 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
+
+
+
+
+
 /*
  Processes camera movement and rotation inputs from user
  @param     *window : current window
             &camera : camera being moved
             deltaTime : change in time
 */
+void processKeyboardInput(GLFWwindow *window, Camera &camera, float deltaTime);
+
+/*
+ callback method for resizing window. glfw handles the rest
+ with their glfwPollEvents().
+ @param     *window : not needed for me, required by glfw
+            width : width of window
+            height : height of window
+*/
+void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+
+/*
+ Generates mesh for a sphere. Spheres will be very far away,
+ so I am not using many triangles to try and save performance.
+ @param     &vertices : amount of verticies
+            &indices : amount of indices
+            sectorCount :
+            stackCount :
+*/
+void generateSphereMesh(vector<float> &vertices, vector<unsigned int> &indices,
+                        int sectorCount, int stackCount);
+
+
+
+
 void processKeyboardInput(GLFWwindow *window, Camera &camera, float deltaTime)
 {
     // Movement - WASD
@@ -49,27 +80,12 @@ void processKeyboardInput(GLFWwindow *window, Camera &camera, float deltaTime)
         camera.processRotation(xDir, yDir, deltaTime);
 }
 
-/*
- callback method for resizing window. glfw handles the rest
- with their glfwPollEvents().
- @param     *window : not needed for me, required by glfw
-            width : width of window
-            height : height of window
-*/
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     (void)window;
     glViewport(0, 0, width, height);
 }
 
-/*
- Generates mesh for a sphere. Spheres will be very far away,
- so I am not using many triangles to try and save performance.
- @param     &vertices : amount of verticies
-            &indices : amount of indices
-            sectorCount :
-            stackCount :
-*/
 void generateSphereMesh(vector<float> &vertices, vector<unsigned int> &indices,
                         int sectorCount = 128, int stackCount = 64)
 {
@@ -179,28 +195,86 @@ int main()
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
         glEnableVertexAttribArray(0);
+        
+        //Masses
+        float sunMass = 1.0e14f;
+        float mercuryMass = 1.0e10f;
+        float venusMass = 1.0e10f;
+        float earthMass = 2.0e10f;
+        float marsMass = 3.0e10f;
+        float jupiterMass = 4.0e10f;
+        float saturnMass = 3.2e10f;
+        float uranusMass = 1.8e10f;
+        float neptuneMass = 1.8e10f;
+
+        //Radius
+        float sunRadius = 3.0f;
+        float mercuryRadius = 0.2f;
+        float venusRadius = 0.55f;
+        float earthRadius = 0.55f;
+        float marsRadius = 0.35f;
+        float jupiterRadius = 1.2f;
+        float saturnRadius = 1.0f;
+        float uranusRadius = 0.8f;
+        float neptuneRadius = 0.8f;
+
+        //Initial Position
+        vec3 initialSunPos = vec3(0, 0, 0);
+        vec3 initialMercuryPos = vec3(15, 0, 0);
+        vec3 initialVenusPos = vec3(27, 0, 0);
+        vec3 initialEarthPos = vec3(40, 0, 0);
+        vec3 initialMarsPos = vec3(50, 0, 0);
+        vec3 initialJupiterPos = vec3(70, 0, 0);
+        vec3 initialSaturnPos = vec3(90, 0, 0);
+        vec3 initialUranusPos = vec3(120, 0, 0);
+        vec3 initialNeptunePos = vec3(140, 0, 0);
+        
+        //Initial Velocity
+        vec3 initialSunVel = vec3(0, 0, 0);
+        vec3 initialMercuryVel = vec3(0, 0, 20);
+        vec3 initialVenusVel = vec3(0, 0, 16);
+        vec3 initialEarthVel = vec3(0, 0, 13.5);
+        vec3 initialMarsVel = vec3(0, 0, 12);
+        vec3 initialJupiterVel = vec3(0, 0, 10);
+        vec3 initialSaturnVel = vec3(0, 0, 9);
+        vec3 initialUranusVel = vec3(0, 0, 8);
+        vec3 initialNeptuneVel = vec3(0, 0, 8);
+
+        //Color
+        vec3 sunColor = vec3(1, 0.85, 0.2);
+        vec3 mercuryColor = vec3(1, 1, 1);
+        vec3 venusColor = vec3(1, 0.65, 0);
+        vec3 earthColor = vec3(0, 1, 0);
+        vec3 marsColor = vec3(1, 0.15, 0);
+        vec3 jupiterColor = vec3(1, 0.6, 0.2);
+        vec3 saturnColor = vec3(0.9, 0.7, 0.2);
+        vec3 uranusColor = vec3(0.3, 0.3, 1);
+        vec3 neptuneColor = vec3(0, 0, 1);
+
+
+
 
         // Initialization of objects in solar system
-        //                              mass-----radiuas--position--------velocity-----color
-        // Sun
-        solarSystem.addObject(SpaceObject(1.0e14f, 3.0f, vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 0.85, 0.2)));
-
+        //Sun
+        solarSystem.addObject(SpaceObject(sunMass, sunRadius, initialSunPos, initialSunVel, sunColor));
         // Mercury
-        solarSystem.addObject(SpaceObject(1.0e10f, 0.2f, vec3(15, 0, 0), vec3(0, 0, 20), vec3(1, 1, 1)));
+        solarSystem.addObject(SpaceObject(mercuryMass, mercuryRadius, initialMercuryPos, initialMercuryVel, mercuryColor));
         // Venus
-        solarSystem.addObject(SpaceObject(1.0e10f, 0.55f, vec3(27, 0, 0), vec3(0, 0, 16), vec3(1, 0.65, 0)));
+        solarSystem.addObject(SpaceObject(venusMass, venusRadius, initialVenusPos, initialVenusVel, venusColor));
         // Earth
-        solarSystem.addObject(SpaceObject(2.0e10f, 0.55f, vec3(40, 0, 0), vec3(0, 0, 13.5), vec3(0, 1, 0)));
+        solarSystem.addObject(SpaceObject(earthMass, earthRadius, initialEarthPos, initialEarthVel, earthColor));
         // Mars
-        solarSystem.addObject(SpaceObject(3.0e10f, 0.35f, vec3(50, 0, 0), vec3(0, 0, 12), vec3(1, 0.15, 0)));
+        solarSystem.addObject(SpaceObject(marsMass, marsRadius, initialMarsPos, initialMarsVel, marsColor));
         // Jupiter
-        solarSystem.addObject(SpaceObject(4.0e10f, 1.2f, vec3(70, 0, 0), vec3(0, 0, 10), vec3(1, 0.6, 0.2)));
+        solarSystem.addObject(SpaceObject(jupiterMass, jupiterRadius, initialJupiterPos, initialJupiterVel, jupiterColor));
         // Saturn
-        solarSystem.addObject(SpaceObject(3.2e10f, 1.0f, vec3(90, 0, 0), vec3(0, 0, 9), vec3(0.9f, 0.7f, 0.2)));
+        solarSystem.addObject(SpaceObject(saturnMass, saturnRadius, initialSaturnPos, initialSaturnVel, saturnColor));
         // Uranus
-        solarSystem.addObject(SpaceObject(1.8e10f, 0.8f, vec3(120, 0, 0), vec3(0, 0, 8), vec3(0.3, 0.3, 1)));
+        solarSystem.addObject(SpaceObject(uranusMass, uranusRadius, initialUranusPos, initialUranusVel, uranusColor));
         // Neptune
-        solarSystem.addObject(SpaceObject(1.8e10f, 0.8f, vec3(140, 0, 0), vec3(0, 0, 8), vec3(0, 0, 1)));
+        solarSystem.addObject(SpaceObject(neptuneMass, neptuneRadius, initialNeptunePos, initialNeptuneVel, neptuneColor));
+
+
 
         // instanced objects
         struct InstanceData
@@ -253,6 +327,7 @@ int main()
             float currentFrame = glfwGetTime();
             float deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
+            //code for framerate
             /*
             ++fpsFrames;
             fpsTime += deltaTime;
