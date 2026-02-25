@@ -6,7 +6,7 @@ This allows for some very cool simulations, like a rouge star flying through our
 
 ## Disclaimer
 Obviously, the distances must be shortened drastically to make it visually meaningful. This required fidgeting with the mass and velocity as well. 
-I tried to keep the planets and suns metrics as realistic as possible.
+I tried to keep object's metrics as realistic as possible.
 
 ## Dependencies
 - g++
@@ -39,6 +39,8 @@ This project is the first larger scale program I have created outside of school 
 I also switched from just using Vim, to using VSCode for this project. I thought it would be fitting for a larger project, with new libraries and APIs.
 This is my first README, and really my first time considering other people who will be reading my code, other than someone who is grading it. I have used gitlab for a single class, 
 and this is my first time really using github.
+
+Further adaptations were made to increase build versatility. Originally, I was using Make, which worked for me. CMake is a more professional option that allows users with slightly different tools to generate a viable build system. This was my first time using CMake, and I thought it was a worthwhile addition considering its prevalence in the industry.
 
 
 I have messed around with very small graphics programs, drawing shapes and moving them around. This project is the same thing, but introduces more dynamic movement and performance considerations.
