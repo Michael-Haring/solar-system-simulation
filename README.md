@@ -19,14 +19,18 @@ I tried to keep object's metrics as realistic as possible.
 sudo apt install g++ libglfw3-dev libgl1-mesa-dev libglm-dev
 ```
 
-## Build
+## Build - Linux
+
 From the project directory run:
 
 ```bash
-make
+mkdir -p build 
+cd build
 ```
 ```bash
-build/simulation
+cmake ..
+cmake --build .
+./simulation
 ```
 
 ## How it Works
