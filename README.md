@@ -9,9 +9,10 @@ Obviously, the distances must be shortened drastically to make it visually meani
 I tried to keep object's metrics as realistic as possible.
 
 ## Dependencies
-- g++
-- OpenGL
-- GLFW
+- CMake (version 3.10 or higher)
+- A C++ compiler (GCC, Clang, MSVC, etc.)
+- OpenGL development libraries
+- GLFW development libraries
 - GLM (header-only)
 
 ## Install Dependencies (Ubuntu/Debian)
