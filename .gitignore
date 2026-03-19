@@ -1,5 +1,6 @@
 /build/
 out/
+testing/
 *.o
 *.obj
 *.exe.dll

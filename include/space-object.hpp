@@ -10,8 +10,9 @@ a celestial body in the simulation.
 
 #pragma once
 #include <glm/glm.hpp>
+#include <string>
 
-using glm::vec3;
+using glm::vec3, std::string;
 
 /*
 
@@ -29,7 +30,7 @@ public:
     @param col : color of object for rendering
     */
     SpaceObject(const float m, const float r,
-                const vec3 &pos, const vec3 &vel, const vec3 &col);
+                const vec3 &pos, const vec3 &vel, const vec3 &col, const string &nname);
 
     /*
     SpaceObject destructor
@@ -78,6 +79,10 @@ public:
     @return this->color
     */
     vec3 getColor() const;
+    /*
+     *
+     * */
+    string getName() const;
 
     /*
     Sets SpaceObjects velocity, used for defining initial velocity
@@ -91,4 +96,5 @@ private:
     vec3 position;
     vec3 velocity;
     vec3 color;
+    string name;
 };
