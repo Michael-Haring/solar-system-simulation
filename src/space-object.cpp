@@ -12,8 +12,8 @@ a celestial body in the simulation.
 // PUBLIC IMPLEMENTATION FOR SPACEOBJECT CLASS
 
 SpaceObject::SpaceObject(const float m, const float r,
-                         const vec3 &pos, const vec3 &vel, const vec3 &col)
-    : mass(m), radius(r), position(pos), velocity(vel), color(col) {}
+                         const vec3 &pos, const vec3 &vel, const vec3 &col, const string &nname)
+    : mass(m), radius(r), position(pos), velocity(vel), color(col), name(nname) {}
 
 void SpaceObject::update(float dt)
 {
@@ -51,6 +51,11 @@ vec3 SpaceObject::getVelocity() const
 vec3 SpaceObject::getColor() const
 {
     return color;
+}
+
+string SpaceObject::getName() const
+{
+    return name;
 }
 
 void SpaceObject::setVelocity(const vec3 &v)

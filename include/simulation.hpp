@@ -22,6 +22,8 @@ public:
     */
     Simulation(float g = 6.67430e-11f);
 
+    void buildStandardSS();
+
     /*
     Adds SpaceObject obj to objects<SpaceObject>
     @param obj : SpaceObject to add to simulation
